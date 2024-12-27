@@ -1,0 +1,3 @@
+I’ve decided: Build a Monte Carlo Option Pricer! 
+Monte Carlo methods are used in finance to value and analyze complex financial instruments by simulating the various sources of uncertainty affecting their value and then determining their average value over a large range of resulting outcomes and paths. 
+Rather than using a lot of financial theory to price complex financial instruments, we instead build a computer simulation of the of the moving parts and see with enough runs of the model what the fair value of the financial instrument is.
