@@ -1,3 +1,4 @@
+import math
 import datetime as dt 
 import yfinance as yf
 import pandas as pd 
@@ -45,6 +46,28 @@ plt.ylabel('Portfolio Value')
 plt.xlabel('Days')
 plt.title('Monte Carlo Sim')
 plt.show()
+
+# risk measure: VaR
+def rmVar(returns, alpha=5):
+    if isinstance(returns, pd.Series):
+        return np.percentile(returns, alpha)
+    else:
+        raise TypeError("Expected Pandas data series")
+    
+# risk measure: cVaR
+def rmCvar(returns, alpha=5):
+    if isinstance(returns, pd.Series):
+        belowVar = returns <= rmVar(returns, alpha)
+        return returns[belowVar].mean()
+    else:
+        raise TypeError("Expected Pandas data series")
+    
+portRes = pd.Series(pf_sim[-1,:])
+Var = pf_initialValue - rmVar(portRes, alpha=5)
+Cvar = pf_initialValue - rmCvar(portRes, alpha=5)
+print("VaR_5 in dollars:{}".format(round(Var, 2)))
+print("CVaR_5 in dollars:{}".format(round(Cvar, 2)))
+
 
 
 
