@@ -13,11 +13,9 @@ def opt_pricer(stock, strike, time, rfr, sig, sim, time_steps=10, option_type="c
         diffusion = sig * z * np.sqrt(dt)
         sim_stock[t] = sim_stock[t-1] * np.exp(drift + diffusion)
     
-    if t == 1:
-            print(f"Drift term (first path): {drift}")
-            print(f"Diffusion term (first path): {diffusion[:10]}") 
-
-    print(f"Simulated stock prices at maturity (first 10 paths): {sim_stock[-1][:10]}")
+    # if t == 1:
+    #         print(f"Drift term (first path): {drift}")
+    #         print(f"Diffusion term (first path): {diffusion[:10]}") 
 
     if option_type.upper() == "CALL":
         payoff = np.maximum(sim_stock[-1]-strike, 0)
