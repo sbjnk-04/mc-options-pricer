@@ -1,7 +1,4 @@
-import datetime as dt 
-import pandas as pd 
 import numpy as np
-import matplotlib.pyplot as plt
 
 # The technique to actually price the options is to then calculate the exercise value ("payoff") of the option for each path, which will then be averaged
 # and discounted to today.
