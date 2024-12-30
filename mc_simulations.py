@@ -47,14 +47,14 @@ plt.xlabel('Days')
 plt.title('Monte Carlo Sim')
 plt.show()
 
-# risk measure: VaR
+# risk measure: VaR. VaR represents the worst-case loss.
 def rmVar(returns, alpha=5):
     if isinstance(returns, pd.Series):
         return np.percentile(returns, alpha)
     else:
         raise TypeError("Expected Pandas data series")
     
-# risk measure: cVaR
+# risk measure: CVaR. CVaR represents the expected loss if the VaR threshold is ever crossed. Usually considered superior to VaR.
 def rmCvar(returns, alpha=5):
     if isinstance(returns, pd.Series):
         belowVar = returns <= rmVar(returns, alpha)
@@ -65,8 +65,13 @@ def rmCvar(returns, alpha=5):
 portRes = pd.Series(pf_sim[-1,:])
 Var = pf_initialValue - rmVar(portRes, alpha=5)
 Cvar = pf_initialValue - rmCvar(portRes, alpha=5)
-print("VaR_5 in dollars:{}".format(round(Var, 2)))
-print("CVaR_5 in dollars:{}".format(round(Cvar, 2)))
+print("VaR_5 in dollars: {}".format(round(Var, 2)))
+print("CVaR_5 in dollars: {}".format(round(Cvar, 2)))
+
+# The technique to actually price the options is to then calculate the exercise value ("payoff") of the option for each path, which will then be averaged
+# and discounted to today.
+
+
 
 
 
