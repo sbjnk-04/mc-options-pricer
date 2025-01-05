@@ -35,5 +35,5 @@ put_price = opt_pricer(stock, strike, time, rfr, sig, sim,  option_type="PUT")
 print(f"Call Option Price = {round(call_price, 2)}")
 print(f"Put Option Price = {round(put_price, 2)}")
 
-# https://www.tejwin.com/en/insight/options-pricing-with-monte-carlo-simulation/
+
 
