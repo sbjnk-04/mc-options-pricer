@@ -1,7 +1,7 @@
 import numpy as np
 
 # The technique to actually price the options is to then calculate the exercise value ("payoff") of the option for each path, which will then be averaged
-# and discounted to today.
+# and discounted to today. The stock dynamics will be modelled with Geometric Brownian Motion 
 def opt_pricer(stock, strike, time, rfr, sig, sim, time_steps=10, option_type="call"): #for European Pricing !!!
     dt = time/time_steps 
     sim_stock = np.zeros((time_steps, sim))
@@ -13,10 +13,6 @@ def opt_pricer(stock, strike, time, rfr, sig, sim, time_steps=10, option_type="c
         diffusion = sig * z * np.sqrt(dt)
         sim_stock[t] = sim_stock[t-1] * np.exp(drift + diffusion)
     
-    # if t == 1:
-    #         print(f"Drift term (first path): {drift}")
-    #         print(f"Diffusion term (first path): {diffusion[:10]}") 
-
     if option_type.upper() == "CALL":
         payoff = np.maximum(sim_stock[-1]-strike, 0)
     elif option_type.upper() == "PUT":
@@ -38,4 +34,6 @@ put_price = opt_pricer(stock, strike, time, rfr, sig, sim,  option_type="PUT")
 
 print(f"Call Option Price = {round(call_price, 2)}")
 print(f"Put Option Price = {round(put_price, 2)}")
+
+# https://www.tejwin.com/en/insight/options-pricing-with-monte-carlo-simulation/
 
